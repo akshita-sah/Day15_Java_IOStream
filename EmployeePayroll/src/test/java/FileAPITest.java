@@ -1,3 +1,4 @@
+import com.bridgelabz.EmployeeWatchService;
 import org.junit.*;
 
 import java.io.File;
@@ -41,5 +42,11 @@ public class FileAPITest {
         Files.list(playPath).filter(Files::isRegularFile).forEach(System.out::println);
         Files.newDirectoryStream(playPath).forEach(System.out::println);
         Files.newDirectoryStream(playPath,path->path.toFile().isFile() && path.toString().startsWith("temp")).forEach(System.out::println);
+    }
+    @Test
+    public void givenADirectoryWhenWatchedListsAllActivities() throws IOException{
+        Path dir = Paths.get(BASE + "/" + PLAY_WITH_FILES);
+        Files.list(dir).filter(Files::isRegularFile).forEach(System.out::println);
+        new EmployeeWatchService(dir).processEvents();
     }
 }
